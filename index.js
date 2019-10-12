@@ -31,7 +31,7 @@ router.get("/getweather", function(req, res) {
   });
 });
 
-// route made for news article.  MAde through backend to secure the api key
+// route made for news article.  Made through backend to secure the api key
 router.get("/getnews", function(req, res) {
   let url =
     "https://newsapi.org/v2/top-headlines?" +

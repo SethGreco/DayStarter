@@ -17,54 +17,130 @@ let pos = {
 // startDay function when called will execute all api calls and generate the new elements to append and display to the user.
 async function startDay() {
   let weather = await getWeather(pos);
-
   let news = await getNews(weather.sys.country);
-  console.log(news);
 
   const articles = news.articles.map(function(article) {
     return article;
   });
-
   console.log(articles);
   // unhide the main-container
   document
     .querySelector(".main-container")
     .setAttribute("class", "main-container");
 
-  // Left Weather card
-  // Holds current temp, location and condition
-  let weatherCard1 = document.createElement("h3");
-  document.querySelector(".weather1").appendChild(weatherCard1);
-  weatherCard1.innerHTML = `${weather.name}, ${tempConversion(
-    weather.main.temp
-  )}F, ${weather.weather[0].main}`;
-
-  // Humidity, wind speend, highs and lows for the day
-  let weatherCard2 = document.createElement("p");
-  document.querySelector(".weather2").appendChild(weatherCard2);
-  weatherCard2.innerHTML = `Humidity: ${weather.main.humidity}, wind speeds: ${
-    weather.wind.speed
-  }, Temp Low:${tempConversion(
-    weather.main.temp_min
-  )}, Temp High:${tempConversion(weather.main.temp_max)}`;
-
+  // Holds current temp, location and condition..Humidity, wind speend, highs and lows for the day
+  weatherUI(weather);
   // Google traffic map
+  mapUI();
+  // News articles
+  newsUI(articles);
+}
+
+// News articles display
+function newsUI(array) {
+  let parentContainer = document.getElementById("news-container");
+
+  for (i = 0; i < 6; i++) {
+    let cardSize = document.createElement("div");
+    cardSize.setAttribute("class", "col s2");
+
+    let card = document.createElement("div");
+    card.setAttribute("class", "card hoverable");
+
+    let imgDiv = document.createElement("div");
+    imgDiv.setAttribute(
+      "class",
+      "card-image waves-effect waves-block waves-light"
+    );
+
+    let image = document.createElement("img");
+    image.setAttribute("class", "activator");
+    image.setAttribute("src", `${array[i].urlToImage}`);
+    // append
+    imgDiv.appendChild(image);
+
+    contentDiv = document.createElement("div");
+    contentDiv.setAttribute("class", "card-content");
+
+    let titleSpan = document.createElement("span");
+    titleSpan.setAttribute(
+      "class",
+      "card-title activator grey-text text-darken-4"
+    );
+    titleSpan.innerHTML = array[i].title;
+    titleSpan.style.fontSize = "18px";
+    titleSpan.style.lineHeight = "25px";
+
+    let icon = document.createElement("i");
+    icon.setAttribute("class", "material-icons right");
+    icon.innerHTML = "more_vert";
+    // append
+    titleSpan.appendChild(icon);
+
+    let linkDiv = document.createElement("div");
+    linkDiv.setAttribute("class", "card-action");
+    let link = document.createElement("a");
+    link.setAttribute("target", "_blank");
+    link.setAttribute("href", `${array[i].url}`);
+    link.innerHTML = "Source";
+    // append
+    linkDiv.appendChild(link);
+
+    // append
+    contentDiv.appendChild(titleSpan);
+    // contentDiv.appendChild();
+
+    revealDiv = document.createElement("div");
+    revealDiv.setAttribute("class", "card-reveal");
+
+    revealSpan = document.createElement("span");
+    revealSpan.setAttribute("class", "card-title grey-text text-darken-4");
+    revealSpan.innerHTML = array[i].title;
+
+    revealSpan.style.fontSize = "18px";
+
+    revealIcon = document.createElement("i");
+    revealIcon.setAttribute("class", "material-icons right");
+    revealIcon.innerHTML = "close";
+
+    revealPara = document.createElement("p");
+    revealPara.innerHTML = array[i].description;
+
+    revealDiv.appendChild(revealSpan);
+    revealSpan.appendChild(revealIcon);
+    revealDiv.appendChild(revealPara);
+
+    card.appendChild(imgDiv);
+    card.appendChild(contentDiv);
+    card.appendChild(linkDiv);
+    card.appendChild(revealDiv);
+    cardSize.appendChild(card);
+    parentContainer.appendChild(cardSize);
+  }
+}
+
+// Map display
+function mapUI() {
   let traffic = document.getElementById("map");
   traffic.style.width = "600px";
   traffic.style.height = "300px";
+}
 
-  // News articles
-  let newsCard = document.createElement("p");
+// Generating Weather Cards Function
+function weatherUI(array) {
+  let weatherCard1 = document.createElement("h4");
+  document.querySelector(".weather1").appendChild(weatherCard1);
+  weatherCard1.innerHTML = `${array.name}, ${tempConversion(
+    array.main.temp
+  )}F, ${array.weather[0].main}`;
 
-  newsCard.setAttribute("id", "a1");
-  document.querySelector(".news1").appendChild(newsCard);
-
-  newsCard.textContent = `${articles[0].title}`;
-
-  let link = document.createElement("a");
-  link.setAttribute("href", `${articles[0].url}`);
-  link.innerHTML = "Source Here";
-  document.querySelector("#a1").appendChild(link);
+  let weatherCard2 = document.createElement("p");
+  document.querySelector(".weather1").appendChild(weatherCard2);
+  weatherCard2.innerHTML = `Humidity: ${array.main.humidity}, wind speeds: ${
+    array.wind.speed
+  }, Temp Low:${tempConversion(
+    array.main.temp_min
+  )}, Temp High:${tempConversion(array.main.temp_max)}`;
 }
 
 // Kelvin to F calculation function
