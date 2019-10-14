@@ -27,96 +27,101 @@ async function startDay() {
   document
     .querySelector(".main-container")
     .setAttribute("class", "main-container");
+  document
+    .querySelector(".main-container-right")
+    .setAttribute("class", "main-container");
 
   // Holds current temp, location and condition..Humidity, wind speend, highs and lows for the day
   weatherUI(weather);
   // Google traffic map
   mapUI();
   // News articles
-  newsUI(articles);
+
+  for (i = 0; i < 3; i++) {
+    newsUI(articles);
+  }
 }
 
 // News articles display
 function newsUI(array) {
-  let parentContainer = document.getElementById("news-container");
+  let parentContainer = document.getElementById("news-container-1");
 
-  for (i = 0; i < 6; i++) {
-    let cardSize = document.createElement("div");
-    cardSize.setAttribute("class", "col s2");
+  let cardSize = document.createElement("div");
+  cardSize.setAttribute("class", "col s2");
 
-    let card = document.createElement("div");
-    card.setAttribute("class", "card hoverable");
+  let card = document.createElement("div");
+  card.setAttribute("class", "card hoverable");
 
-    let imgDiv = document.createElement("div");
-    imgDiv.setAttribute(
-      "class",
-      "card-image waves-effect waves-block waves-light"
-    );
+  let imgDiv = document.createElement("div");
+  imgDiv.setAttribute(
+    "class",
+    "card-image waves-effect waves-block waves-light"
+  );
 
-    let image = document.createElement("img");
-    image.setAttribute("class", "activator");
-    image.setAttribute("src", `${array[i].urlToImage}`);
-    // append
-    imgDiv.appendChild(image);
+  let image = document.createElement("img");
+  image.setAttribute("class", "activator");
+  image.setAttribute("src", `${array[i].urlToImage}`);
+  // append
+  imgDiv.appendChild(image);
 
-    contentDiv = document.createElement("div");
-    contentDiv.setAttribute("class", "card-content");
+  contentDiv = document.createElement("div");
+  contentDiv.setAttribute("class", "card-content");
 
-    let titleSpan = document.createElement("span");
-    titleSpan.setAttribute(
-      "class",
-      "card-title activator grey-text text-darken-4"
-    );
-    titleSpan.innerHTML = array[i].title;
-    titleSpan.style.fontSize = "18px";
-    titleSpan.style.lineHeight = "25px";
+  let titleSpan = document.createElement("span");
+  titleSpan.setAttribute(
+    "class",
+    "card-title activator grey-text text-darken-4"
+  );
+  titleSpan.innerHTML = array[i].title;
+  titleSpan.style.fontSize = "15px";
+  titleSpan.style.lineHeight = "25px";
 
-    let icon = document.createElement("i");
-    icon.setAttribute("class", "material-icons right");
-    icon.innerHTML = "more_vert";
-    // append
-    titleSpan.appendChild(icon);
+  let icon = document.createElement("i");
+  icon.setAttribute("class", "material-icons right");
+  icon.innerHTML = "more_vert";
+  // append
+  titleSpan.appendChild(icon);
 
-    let linkDiv = document.createElement("div");
-    linkDiv.setAttribute("class", "card-action");
-    let link = document.createElement("a");
-    link.setAttribute("target", "_blank");
-    link.setAttribute("href", `${array[i].url}`);
-    link.innerHTML = "Source";
-    // append
-    linkDiv.appendChild(link);
+  let linkDiv = document.createElement("div");
+  linkDiv.setAttribute("class", "card-action light-blue darken-4");
+  let link = document.createElement("a");
+  link.setAttribute("target", "_blank");
+  link.setAttribute("href", `${array[i].url}`);
+  link.setAttribute("class", "lime-text text-accent-1");
+  link.innerHTML = "Source";
+  // append
+  linkDiv.appendChild(link);
 
-    // append
-    contentDiv.appendChild(titleSpan);
-    // contentDiv.appendChild();
+  // append
+  contentDiv.appendChild(titleSpan);
+  // contentDiv.appendChild();
 
-    revealDiv = document.createElement("div");
-    revealDiv.setAttribute("class", "card-reveal");
+  revealDiv = document.createElement("div");
+  revealDiv.setAttribute("class", "card-reveal");
 
-    revealSpan = document.createElement("span");
-    revealSpan.setAttribute("class", "card-title grey-text text-darken-4");
-    revealSpan.innerHTML = array[i].title;
+  revealSpan = document.createElement("span");
+  revealSpan.setAttribute("class", "card-title grey-text text-darken-4");
+  revealSpan.innerHTML = array[i].title;
 
-    revealSpan.style.fontSize = "18px";
+  revealSpan.style.fontSize = "18px";
 
-    revealIcon = document.createElement("i");
-    revealIcon.setAttribute("class", "material-icons right");
-    revealIcon.innerHTML = "close";
+  revealIcon = document.createElement("i");
+  revealIcon.setAttribute("class", "material-icons right");
+  revealIcon.innerHTML = "close";
 
-    revealPara = document.createElement("p");
-    revealPara.innerHTML = array[i].description;
+  revealPara = document.createElement("p");
+  revealPara.innerHTML = array[i].description;
 
-    revealDiv.appendChild(revealSpan);
-    revealSpan.appendChild(revealIcon);
-    revealDiv.appendChild(revealPara);
+  revealDiv.appendChild(revealSpan);
+  revealSpan.appendChild(revealIcon);
+  revealDiv.appendChild(revealPara);
 
-    card.appendChild(imgDiv);
-    card.appendChild(contentDiv);
-    card.appendChild(linkDiv);
-    card.appendChild(revealDiv);
-    cardSize.appendChild(card);
-    parentContainer.appendChild(cardSize);
-  }
+  card.appendChild(imgDiv);
+  card.appendChild(contentDiv);
+  card.appendChild(linkDiv);
+  card.appendChild(revealDiv);
+  cardSize.appendChild(card);
+  parentContainer.appendChild(cardSize);
 }
 
 // Map display

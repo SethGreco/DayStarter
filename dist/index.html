@@ -14,29 +14,25 @@
     />
     <title>Day Starter App</title>
   </head>
-  <style>
-    #header {
-      font-size: 3.6rem;
-      padding: 1.6rem;
-    }
-  </style>
+
   <body class="light-blue lighten-4">
     <!-- Body will house 3 sections for now that each will display Weather, Music, & Traffic
           Using Javascript new elements will be created and appended to this <div>.  Will stagger results with load bars -->
-    <div
-      id="header"
-      class="row col s12 center light-blue darken-4 amber-text text-lighten-1"
-    >
-      Day Starter
+    <div id="header" class="row light-blue darken-4">
+      <div class="col s4 amber-text text-lighten-1">
+        <h3>
+          Day Starter
+        </h3>
+      </div>
+      <div class="col s4">
+        <h4 class="center-align">
+          <a id="start" class="amber waves-effect lighten-1 btn"
+            >Start<i class="material-icons right">send</i></a
+          >
+          <a id="location" class="green waves-effect lighten-1 btn">Location</a>
+        </h4>
+      </div>
     </div>
-
-    <h4 class="center-align">
-      <a id="start" class="amber waves-effect lighten-1 btn"
-        >Start<i class="material-icons right">send</i></a
-      >
-
-      <a id="location" class="green waves-effect lighten-1 btn">Location</a>
-    </h4>
 
     <!-- Loader
     <div class="container hide" style="width: 350px">
@@ -48,25 +44,28 @@
     <div class="main-container hide">
       <!-- Weather -->
       <div class="row">
-        <div class="col s4 offset-s1">
+        <div class="col s4">
           <div class="card blue darken-4 hoverable">
             <div class="weather1 card-content amber-text"></div>
           </div>
         </div>
       </div>
-      <br />
       <!-- Traffic -->
       <div class="row">
-        <div class="col s5 offset-s1">
+        <div class="col s5">
           <div class="traffic-container card">
             <div id="map"></div>
           </div>
         </div>
       </div>
-      <br />
-      <!-- New Articles section -->
-      <div id="news-container" class="row"></div>
     </div>
+
+    <div class="main-container-right hide">
+      <div id="news-container-1" class="row"></div>
+    </div>
+    <!-- New Articles section -->
+    <div id="news-container-2" class="row"></div>
+
     <!-- Footer -->
     <div id="footer"></div>
 

@@ -3,7 +3,8 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const router = express.Router();
-const keys = require("./config/dev");
+// const keys = require("./config/dev");
+const keys = require("./config/keys");
 
 const request = require("request");
 app.use(cors());
