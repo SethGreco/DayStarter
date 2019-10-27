@@ -22,6 +22,7 @@ async function startDay() {
   const articles = news.articles.map(function(article) {
     return article;
   });
+  console.log(weather);
   console.log(articles);
   // unhide the main-container
   document
@@ -37,7 +38,7 @@ async function startDay() {
   mapUI();
   // News articles
 
-  for (i = 0; i < 3; i++) {
+  for (i = 0; i < 6; i++) {
     newsUI(articles);
   }
 }
@@ -133,11 +134,28 @@ function mapUI() {
 
 // Generating Weather Cards Function
 function weatherUI(array) {
-  let weatherCard1 = document.createElement("h4");
-  document.querySelector(".weather1").appendChild(weatherCard1);
-  weatherCard1.innerHTML = `${array.name}, ${tempConversion(
-    array.main.temp
-  )}F, ${array.weather[0].main}`;
+  let weatherCard = document.querySelector(".weather1");
+  document.querySelector(".weather1").style.padding = "12px";
+
+  let greeting = document.createElement("h2");
+  greeting.innerHTML = `${getDay()}`;
+  weatherCard.appendChild(greeting);
+
+  let cityName = document.createElement("h5");
+  cityName.style.marginTop = "0px";
+  weatherCard.appendChild(cityName);
+
+  cityName.innerHTML = `${array.name}`;
+
+  let degree = document.createElement("h3");
+  degree.style.margin = "0px";
+  degree.innerHTML = `${tempConversion(array.main.temp)}&#8457;`;
+  weatherCard.appendChild(degree);
+
+  let condition = document.createElement("h5");
+  condition.style.margin = "0px";
+  condition.innerHTML = `${array.weather[0].main}`;
+  weatherCard.appendChild(condition);
 
   let weatherCard2 = document.createElement("p");
   document.querySelector(".weather1").appendChild(weatherCard2);
@@ -181,6 +199,34 @@ function getNews(country) {
   );
 }
 
+function getDay() {
+  let day = "";
+  switch (new Date().getDay()) {
+    case 0:
+      day = "Sunday";
+      break;
+    case 1:
+      day = "Monday";
+      break;
+    case 2:
+      day = "Tuesday";
+      break;
+    case 3:
+      day = "Wednesday";
+      break;
+    case 4:
+      day = "Thursday";
+      break;
+    case 5:
+      day = "Friday";
+      break;
+    case 6:
+      day = "Saturday";
+      break;
+  }
+
+  return day;
+}
 // generate google map
 function initMap() {
   var map = new google.maps.Map(document.getElementById("map"), {
